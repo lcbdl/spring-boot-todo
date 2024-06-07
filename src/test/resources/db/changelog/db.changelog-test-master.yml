@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      id: "create table"
+      author: "Chuanbao"
+      file: "001-create-table.test.sql"
+      relativeToChangelogFile: true
+      

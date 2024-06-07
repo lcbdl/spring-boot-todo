@@ -33,8 +33,8 @@ public class TodoService {
     return repository.save(newTodo);
   }
 
-  public Todo updateTodo(Todo todo) {
-    return repository.update(todo);
+  public Todo updateTodo(Integer id, Todo todo) {
+    return repository.update(id, todo);
   }
 
   public void deleteTodo(Integer id) {

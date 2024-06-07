@@ -66,10 +66,12 @@ public class JdbcTodoRepositoryImpl implements TodoRepository {
     return todo;
   }
 
-  public Todo update(Todo todo) {
-    this.findById(todo.getId()).orElseThrow(() -> new ResourceNotFoundException());
+  @Override
+  public Todo update(Integer id, Todo todo) {
+    this.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+    todo.setId(id);
     jdbcTemplate.update("update todo set title=?, description=?, completed=? where id=?", todo.getTitle(),
-        todo.getDescription(), todo.getCompleted() == null ? false : todo.getCompleted(), todo.getId());
+        todo.getDescription(), todo.getCompleted() == null ? false : todo.getCompleted(), id);
     return todo;
   }
 

@@ -86,9 +86,9 @@ public class TodoServiceTest {
     updatedTodo.setCompleted(true);
 
     when(todoRepository.findById(1)).thenReturn(Optional.of(existingTodo));
-    when(todoRepository.update(updatedTodo)).thenReturn(updatedTodo);
+    when(todoRepository.update(1, updatedTodo)).thenReturn(updatedTodo);
 
-    Todo result = todoService.updateTodo(updatedTodo);
+    Todo result = todoService.updateTodo(1, updatedTodo);
 
     assertNotNull(result);
     assertEquals("Updated Title", result.getTitle());
@@ -99,10 +99,10 @@ public class TodoServiceTest {
   @Test
   void testUpdateTodo_NotFound() {
     Todo updatedTodo = Todo.builder().id(1).build();
-    when(todoRepository.update(updatedTodo)).thenThrow(new ResourceNotFoundException());
+    when(todoRepository.update(1, updatedTodo)).thenThrow(new ResourceNotFoundException());
 
     assertThrows(ResourceNotFoundException.class, () -> {
-      todoService.updateTodo(updatedTodo);
+      todoService.updateTodo(1, updatedTodo);
     });
   }
 

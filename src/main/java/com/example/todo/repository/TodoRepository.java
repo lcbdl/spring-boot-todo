@@ -14,5 +14,5 @@ public interface TodoRepository {
 
   public Todo save(Todo todo);
 
-  public Todo update(Todo todo);
+  public Todo update(Integer id, Todo todo);
 }

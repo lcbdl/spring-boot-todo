@@ -57,7 +57,7 @@ public class TodoRestController {
 
   @PatchMapping("/{id}")
   public ResponseEntity<Todo> updateTodo(@PathVariable Integer id, @RequestBody Todo todo) {
-    ResponseEntity<Todo> response = new ResponseEntity<>(todoService.updateTodo(todo), HttpStatus.OK);
+    ResponseEntity<Todo> response = new ResponseEntity<>(todoService.updateTodo(id, todo), HttpStatus.OK);
     return response;
   }
 

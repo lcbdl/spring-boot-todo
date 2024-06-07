@@ -1,0 +1,7 @@
+
+CREATE TABLE IF NOT EXISTS todo (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  title VARCHAR(100) NOT NULL,
+  description VARCHAR(255),
+  completed BOOLEAN default false
+);

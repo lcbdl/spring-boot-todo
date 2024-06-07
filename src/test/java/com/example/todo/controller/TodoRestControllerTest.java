@@ -89,14 +89,14 @@ public class TodoRestControllerTest {
   void testUpdateTodo() {
     Todo todo = new Todo();
     Todo updatedTodo = new Todo();
-    when(todoService.updateTodo(todo)).thenReturn(updatedTodo);
+    when(todoService.updateTodo(1, todo)).thenReturn(updatedTodo);
 
     ResponseEntity<Todo> response = todoRestController.updateTodo(1, todo);
 
     assertNotNull(response);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(updatedTodo, response.getBody());
-    verify(todoService, times(1)).updateTodo(todo);
+    verify(todoService, times(1)).updateTodo(1, todo);
   }
 
   @Test
