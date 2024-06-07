@@ -33,21 +33,21 @@ public class TodoServiceTest {
   @Test
   void testFindById_Success() {
     Todo todo = new Todo();
-    todo.setId(1L);
-    when(todoRepository.findById(1L)).thenReturn(Optional.of(todo));
+    todo.setId(1);
+    when(todoRepository.findById(1)).thenReturn(Optional.of(todo));
 
-    Todo result = todoService.findById(1L);
+    Todo result = todoService.findById(1);
 
     assertNotNull(result);
-    assertEquals(1L, result.getId());
+    assertEquals(1, result.getId());
   }
 
   @Test
   void testFindById_NotFound() {
-    when(todoRepository.findById(1L)).thenReturn(Optional.empty());
+    when(todoRepository.findById(1)).thenReturn(Optional.empty());
 
     assertThrows(ResourceNotFoundException.class, () -> {
-      todoService.findById(1L);
+      todoService.findById(1);
     });
   }
 
@@ -78,16 +78,17 @@ public class TodoServiceTest {
   @Test
   void testUpdateTodo_Success() {
     Todo existingTodo = new Todo();
-    existingTodo.setId(1L);
+    existingTodo.setId(1);
     Todo updatedTodo = new Todo();
+    updatedTodo.setId(1);
     updatedTodo.setTitle("Updated Title");
     updatedTodo.setDescription("Updated Description");
     updatedTodo.setCompleted(true);
 
-    when(todoRepository.findById(1L)).thenReturn(Optional.of(existingTodo));
-    when(todoRepository.save(existingTodo)).thenReturn(existingTodo);
+    when(todoRepository.findById(1)).thenReturn(Optional.of(existingTodo));
+    when(todoRepository.update(updatedTodo)).thenReturn(updatedTodo);
 
-    Todo result = todoService.updateTodo(1L, updatedTodo);
+    Todo result = todoService.updateTodo(updatedTodo);
 
     assertNotNull(result);
     assertEquals("Updated Title", result.getTitle());
@@ -97,20 +98,20 @@ public class TodoServiceTest {
 
   @Test
   void testUpdateTodo_NotFound() {
-    Todo updatedTodo = new Todo();
-    when(todoRepository.findById(1L)).thenReturn(Optional.empty());
+    Todo updatedTodo = Todo.builder().id(1).build();
+    when(todoRepository.update(updatedTodo)).thenThrow(new ResourceNotFoundException());
 
     assertThrows(ResourceNotFoundException.class, () -> {
-      todoService.updateTodo(1L, updatedTodo);
+      todoService.updateTodo(updatedTodo);
     });
   }
 
   @Test
   void testDeleteTodo() {
-    doNothing().when(todoRepository).deleteById(1L);
+    doNothing().when(todoRepository).deleteById(1);
 
-    todoService.deleteTodo(1L);
+    todoService.deleteTodo(1);
 
-    verify(todoRepository, times(1)).deleteById(1L);
+    verify(todoRepository, times(1)).deleteById(1);
   }
 }

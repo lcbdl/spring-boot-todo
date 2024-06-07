@@ -1,9 +1,18 @@
 package com.example.todo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
 import com.example.todo.entity.Todo;
 
-public interface TodoRepository extends JpaRepository<Todo, Long> {
+public interface TodoRepository {
+  public List<Todo> findAll();
 
+  public Optional<Todo> findById(Integer id);
+
+  public void deleteById(Integer id);
+
+  public Todo save(Todo todo);
+
+  public Todo update(Todo todo);
 }

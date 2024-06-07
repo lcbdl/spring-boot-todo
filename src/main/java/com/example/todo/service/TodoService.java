@@ -21,7 +21,7 @@ public class TodoService {
   @Autowired
   private TodoRepository repository;
 
-  public Todo findById(Long id) {
+  public Todo findById(Integer id) {
     return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
   }
 
@@ -33,16 +33,11 @@ public class TodoService {
     return repository.save(newTodo);
   }
 
-  public Todo updateTodo(Long id, Todo todo) {
-    Todo curTodo = this.repository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
-    curTodo.setTitle(todo.getTitle());
-    curTodo.setDescription(todo.getDescription());
-    curTodo.setCompleted(todo.getCompleted());
-    return repository.save(curTodo);
+  public Todo updateTodo(Todo todo) {
+    return repository.update(todo);
   }
 
-  public void deleteTodo(Long id) {
+  public void deleteTodo(Integer id) {
     repository.deleteById(id);
   }
-
 }

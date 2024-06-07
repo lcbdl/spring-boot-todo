@@ -50,19 +50,19 @@ public class TodoRestController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Todo> findTodoById(@PathVariable Long id) {
+  public ResponseEntity<Todo> findTodoById(@PathVariable Integer id) {
     ResponseEntity<Todo> response = new ResponseEntity<>(todoService.findById(id), HttpStatus.OK);
     return response;
   }
 
   @PatchMapping("/{id}")
-  public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-    ResponseEntity<Todo> response = new ResponseEntity<>(todoService.updateTodo(id, todo), HttpStatus.OK);
+  public ResponseEntity<Todo> updateTodo(@PathVariable Integer id, @RequestBody Todo todo) {
+    ResponseEntity<Todo> response = new ResponseEntity<>(todoService.updateTodo(todo), HttpStatus.OK);
     return response;
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity deleteTodo(@PathVariable Long id) {
+  public ResponseEntity deleteTodo(@PathVariable Integer id) {
     todoService.deleteTodo(id);
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }

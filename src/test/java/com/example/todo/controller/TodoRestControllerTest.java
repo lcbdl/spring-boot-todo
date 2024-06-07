@@ -65,22 +65,22 @@ public class TodoRestControllerTest {
   @Test
   void testFindTodoById_Success() {
     Todo todo = new Todo();
-    when(todoService.findById(1L)).thenReturn(todo);
+    when(todoService.findById(1)).thenReturn(todo);
 
-    ResponseEntity<Todo> response = todoRestController.findTodoById(1L);
+    ResponseEntity<Todo> response = todoRestController.findTodoById(1);
 
     assertNotNull(response);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(todo, response.getBody());
-    verify(todoService, times(1)).findById(1L);
+    verify(todoService, times(1)).findById(1);
   }
 
   @Test
   void testFindTodoById_Fail() {
-    when(todoService.findById(1L)).thenThrow(new ResourceNotFoundException());
+    when(todoService.findById(1)).thenThrow(new ResourceNotFoundException());
 
     assertThrowsExactly(ResourceNotFoundException.class, () -> {
-      ResponseEntity<Todo> response = todoRestController.findTodoById(1L);
+      ResponseEntity<Todo> response = todoRestController.findTodoById(1);
       assertNull(response);
     });
   }
@@ -89,24 +89,24 @@ public class TodoRestControllerTest {
   void testUpdateTodo() {
     Todo todo = new Todo();
     Todo updatedTodo = new Todo();
-    when(todoService.updateTodo(1L, todo)).thenReturn(updatedTodo);
+    when(todoService.updateTodo(todo)).thenReturn(updatedTodo);
 
-    ResponseEntity<Todo> response = todoRestController.updateTodo(1L, todo);
+    ResponseEntity<Todo> response = todoRestController.updateTodo(1, todo);
 
     assertNotNull(response);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(updatedTodo, response.getBody());
-    verify(todoService, times(1)).updateTodo(1L, todo);
+    verify(todoService, times(1)).updateTodo(todo);
   }
 
   @Test
   void testDeleteTodo() {
-    doNothing().when(todoService).deleteTodo(1L);
+    doNothing().when(todoService).deleteTodo(1);
 
-    ResponseEntity response = todoRestController.deleteTodo(1L);
+    ResponseEntity response = todoRestController.deleteTodo(1);
 
     assertNotNull(response);
     assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-    verify(todoService, times(1)).deleteTodo(1L);
+    verify(todoService, times(1)).deleteTodo(1);
   }
 }
