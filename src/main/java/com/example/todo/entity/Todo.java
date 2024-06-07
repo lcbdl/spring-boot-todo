@@ -15,5 +15,6 @@ public class Todo {
 
   private String title;
   private String description;
+  @Builder.Default
   private Boolean completed = false;
 }
